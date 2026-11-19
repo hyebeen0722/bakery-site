@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: bread-compass
+    runtime: python
+    plan: starter
+    buildCommand: python -m py_compile server.py
+    startCommand: python server.py --host 0.0.0.0
+    healthCheckPath: /api/posts
+    disk:
+      name: community-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: COMMUNITY_DB
+        value: /var/data/community.sqlite3
